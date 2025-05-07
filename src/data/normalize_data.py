@@ -1,15 +1,19 @@
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 import joblib
 import os
 
 def main():
-    processed_dir = os.path.join("data", "processed")
+    processed_dir = os.path.join("data", "processed_data")
     scaler_path = os.path.join("models", "scaler.pkl")
 
-    # Lire jeux de données
+    # Lire jeux de données numériques uniquement
     X_train = pd.read_csv(os.path.join(processed_dir, "X_train.csv"))
     X_test = pd.read_csv(os.path.join(processed_dir, "X_test.csv"))
+    # Assurer uniquement colonnes numériques
+    X_train = X_train.select_dtypes(include=[np.number])
+    X_test = X_test.select_dtypes(include=[np.number])
 
     # Normalisation
     scaler = StandardScaler()

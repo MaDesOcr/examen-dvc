@@ -4,7 +4,7 @@ import joblib
 import os
 
 def main():
-    processed_dir = os.path.join("data", "processed")
+    processed_dir = os.path.join("data", "processed_data")
     model_dir = "models"
     os.makedirs(model_dir, exist_ok=True)
 

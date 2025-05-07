@@ -1,15 +1,21 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 import os
 
 def main():
     raw_path = os.path.join("data", "raw_data", "raw.csv")
-    processed_dir = os.path.join("data", "processed")
+    processed_dir = os.path.join("data", "processed_data")
     os.makedirs(processed_dir, exist_ok=True)
 
+    # Lecture du CSV brut
     df = pd.read_csv(raw_path)
-    X = df.drop(columns=["silica_concentrate"])
-    y = df["silica_concentrate"]
+    # Garder uniquement les colonnes numériques
+    df_numeric = df.select_dtypes(include=[np.number])
+
+    # Séparer X et y
+    X = df_numeric.drop(columns=["silica_concentrate"])
+    y = df_numeric["silica_concentrate"]
 
     # Split train/test
     X_train, X_test, y_train, y_test = train_test_split(
